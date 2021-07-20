@@ -1,4 +1,4 @@
-package com.signear.domain.usercustomer;
+package com.signear.domain.reservationhistory;
 
 import java.util.Date;
 
@@ -14,30 +14,29 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@Getter
-@ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "user_customer", schema = "ear_project")
-public class UserCustomer {
+@Table(name = "reservation_history")
+public class ReservationHistory {
 	@Id
+	@Column(name = "rhID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
-	private Integer customerid;
+	private Integer rhID;
 
-	@Column(length = 255, nullable = true)
-	private String email;
+	@Column(name = "rsID")
+	private Integer rsID;
 
-	@Column(length = 255, nullable = true)
-	private String phone;
+	@Column(name = "fromStatus")
+	private Integer fromStatus;
 
-	@Column(length = 255, nullable = true)
-	private String password;
+	@Column(name = "toStatus")
+	private Integer toStatus;
 
 	/**
 	 * 생성 일자
@@ -54,4 +53,5 @@ public class UserCustomer {
 	@Column(name = "MOD_DATE")
 	@UpdateTimestamp
 	private Date modDate;
+
 }

@@ -9,9 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
 		super.setAuthenticationManager(authenticationManager);
@@ -21,8 +18,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
-				request.getParameter("userEmail"), request.getParameter("userPw"));
+				request.getParameter("email"), request.getParameter("password"));
 		setDetails(request, authRequest);
+
+		System.out.println("fileter 탐");
 		return this.getAuthenticationManager().authenticate(authRequest);
 	}
+
 }

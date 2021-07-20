@@ -4,4 +4,4 @@ spring:  profiles:    group:      prod:      dev:  datasource:    url: "jd
     store-type: "none"  jpa:    database: "mysql"
     database-platform: "org.hibernate.dialect.MySQL5InnoDBDialect"
     show-sql: true
-    open-in-view: false
+    open-in-view: falseserver:  servlet:    context-path: /  ssl:    enabled: false  port: 8080
