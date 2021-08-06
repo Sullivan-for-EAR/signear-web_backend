@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -72,12 +71,12 @@ public class Reservation {
 	@Column(nullable = true)
 	private String start_time;
 
-	@ManyToOne
-	@JoinColumns({ @JoinColumn(name = "customerID", referencedColumnName = "customerID") })
+	@ManyToOne(optional = false)
+	@JoinColumn
 	private UserCustomer userCustomer;
 
-	@ManyToOne
-	@JoinColumns({ @JoinColumn(name = "signID", referencedColumnName = "signID") })
+	@ManyToOne(optional = false)
+	@JoinColumn
 	private UserSign userSign;
 
 	/**

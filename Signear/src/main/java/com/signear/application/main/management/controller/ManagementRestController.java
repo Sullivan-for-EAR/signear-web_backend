@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.signear.application.main.management.service.ManagementService;
 import com.signear.domain.reservation.Reservation;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("management")
 public class ManagementRestController {
@@ -19,6 +21,7 @@ public class ManagementRestController {
 	@Autowired
 	ManagementService managementService;
 
+	@ApiOperation(value = "청각장애인 사용자의 예약정보 목록 조회", notes = "청각장애인 사용자의 customer_id를 통해 예약목록을 조회한다.")
 	@RequestMapping(value = "/customer/list", method = RequestMethod.GET)
 	public List<Reservation> getCustomerManagementList(@RequestParam Integer customer_id) {
 
@@ -27,6 +30,7 @@ public class ManagementRestController {
 		return ReservationResult;
 	}
 
+	@ApiOperation(value = "통역사의 예약정보 목록 조회", notes = "통역사가 예약확정, 예약 취소 한 예약 목록을 조회한다.")
 	@RequestMapping(value = "/sign/list", method = RequestMethod.GET)
 	public List<Reservation> getSignManagementList(@RequestParam Integer sign_id) {
 
@@ -35,8 +39,9 @@ public class ManagementRestController {
 		return ReservationResult;
 	}
 
-	@RequestMapping(value = "/delete/{rsID}", method = RequestMethod.POST)
-	public void deleteReservation(@PathVariable("rsID") Integer reservation_id) {
+	@ApiOperation(value = "예약 삭제", notes = "reservation_id 로 예약을 삭제한다.")
+	@RequestMapping(value = "/delete/{rsid}", method = RequestMethod.POST)
+	public void deleteReservation(@PathVariable("rsid") Integer reservation_id) {
 
 		managementService.delete(reservation_id);
 

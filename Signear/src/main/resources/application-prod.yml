@@ -1,16 +1,20 @@
+server:
+  servlet:
+    context-path: /
+  ssl:
+    enabled: false
+  port: 8086
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://3.35.204.9:3306/ear_project?serverTimezone=UTC&characterEncoding=UTF-8
-    username: ear_project_success
-    password: Ear_success1
+    url: "jdbc:mysql://3.35.204.9:3306/ear_project?serverTimezone=UTC&characterEncoding=UTF-8"
+    username: "ear_project_success"
+    password: "Ear_success1!"
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
     show-sql: true
-    hibernate:
-      ddl-auto: create
 
 logging:
   level:

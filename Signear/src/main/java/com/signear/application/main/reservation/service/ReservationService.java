@@ -60,7 +60,7 @@ public class ReservationService {
 
 		Integer customerID = reservation.getUserCustomer().getCustomerid();
 		String date = LocalDateTime.now().toString().substring(0, 10).replaceAll("-", "");
-		List<Reservation> reservationList = reservationRepositiory.findByCustomerIDDate(customerID, date);
+		List<Reservation> reservationList = reservationRepositiory.findByCustomeridDate(customerID, date);
 
 		if (reservationList.size() > 0) {
 			throw new ApiException(ExceptionEnum.SECURITY_03);
@@ -84,17 +84,17 @@ public class ReservationService {
 	}
 
 	public Reservation getOneByRsID(Integer rsID) {
-		return reservationRepositiory.findByRsID(rsID);
+		return reservationRepositiory.findByRsid(rsID);
 	}
 
 	public List<Reservation> getListByCustomerID(Integer customerID) {
 		String localTime = LocalDateTime.now().toString().substring(0, 10).replaceAll("-", "");
-		return reservationRepositiory.findByCustomerID(customerID, localTime);
+		return reservationRepositiory.findByCustomerid(customerID, localTime);
 	}
 
 	public List<Reservation> getListBySignID(Integer signID) {
 		String localTime = LocalDateTime.now().toString().substring(0, 10).replaceAll("-", "");
-		return reservationRepositiory.findBySignID(signID, localTime);
+		return reservationRepositiory.findBySignid(signID, localTime);
 	}
 
 }

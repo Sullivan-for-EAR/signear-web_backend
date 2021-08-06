@@ -40,7 +40,7 @@ public class ManagementService {
 
 	public List<Reservation> getListByCustomerID(Integer customerID) {
 		String localTime = LocalDateTime.now().toString().substring(0, 10).replaceAll("-", "");
-		List<Reservation> customerManagementList = reservationRepository.findByCustomerID(customerID, localTime);
+		List<Reservation> customerManagementList = reservationRepository.findByCustomerid(customerID, localTime);
 		List<Reservation> customerManagementReturnList = this.getList(customerManagementList);
 
 		return customerManagementReturnList;
@@ -48,7 +48,7 @@ public class ManagementService {
 
 	public List<Reservation> getListBySignID(Integer signID) {
 		String localTime = LocalDateTime.now().toString().substring(0, 10).replaceAll("-", "");
-		List<Reservation> signManagementList = reservationRepository.findBySignID(signID, localTime);
+		List<Reservation> signManagementList = reservationRepository.findBySignid(signID, localTime);
 		List<Reservation> signManagementReturnList = this.getList(signManagementList);
 
 		return signManagementReturnList;
@@ -81,7 +81,7 @@ public class ManagementService {
 
 			// ManagementModel managementModel = this.getManagementMapper(management);
 			ReservationHistory reservationHistory = new ReservationHistory();
-			reservationHistory.setRsID(management.getRsid());
+			reservationHistory.setRsid(management.getRsid());
 			reservationHistory.setFromStatus(management.getStatus());
 
 			int status = management.getStatus();

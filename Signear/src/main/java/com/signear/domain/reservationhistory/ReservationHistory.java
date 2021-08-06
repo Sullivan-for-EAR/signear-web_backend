@@ -25,12 +25,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "reservation_history")
 public class ReservationHistory {
 	@Id
-	@Column(name = "rhID")
+	@Column(name = "rhid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer rhID;
+	private Integer rhid;
 
-	@Column(name = "rsID")
-	private Integer rsID;
+	@Column(name = "rsid")
+	private Integer rsid;
 
 	@Column(name = "fromStatus")
 	private Integer fromStatus;
