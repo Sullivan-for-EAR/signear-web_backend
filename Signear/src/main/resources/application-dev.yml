@@ -1,3 +1,12 @@
+server:
+  servlet:
+    context-path: /
+  ssl:
+    enabled: false
+  port: 8080
+
 spring:
-  profiles:
-    active: dev
+  redis:
+    host: localhost
+    password: password
+    port: 6379

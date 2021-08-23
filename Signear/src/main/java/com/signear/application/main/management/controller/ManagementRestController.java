@@ -21,18 +21,9 @@ public class ManagementRestController {
 	@Autowired
 	ManagementService managementService;
 
-	@ApiOperation(value = "청각장애인 사용자의 예약정보 목록 조회", notes = "청각장애인 사용자의 customer_id를 통해 예약목록을 조회한다.")
-	@RequestMapping(value = "/customer/list", method = RequestMethod.GET)
-	public List<Reservation> getCustomerManagementList(@RequestParam Integer customer_id) {
-
-		List<Reservation> ReservationResult = managementService.getListByCustomerID(customer_id);
-
-		return ReservationResult;
-	}
-
 	@ApiOperation(value = "통역사의 예약정보 목록 조회", notes = "통역사가 예약확정, 예약 취소 한 예약 목록을 조회한다.")
-	@RequestMapping(value = "/sign/list", method = RequestMethod.GET)
-	public List<Reservation> getSignManagementList(@RequestParam Integer sign_id) {
+	@RequestMapping(value = "/reservation/list", method = RequestMethod.GET)
+	public List<Reservation> readSignList(@RequestParam Integer sign_id) {
 
 		List<Reservation> ReservationResult = managementService.getListBySignID(sign_id);
 

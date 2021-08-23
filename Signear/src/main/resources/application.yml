@@ -1,5 +1,4 @@
-spring:  profiles:    active:    - prod   # - dev  datasource:    url: "jdbc:mysql://3.35.204.9:3306/ear_project?serverTimezone=UTC&characterEncoding=UTF-8"    username: "ear_project_success"
-    password: "Ear_success1!"
+spring:  profiles:    active:    - prod   # - dev  datasource:    url: "jdbc:mysql://db-6t4fg.pub-cdb.ntruss.com/eardb?serverTimezone=UTC&characterEncoding=UTF-8"    username: "sullivan_db"    password: "sullivan2w3e4r!"
     driver-class-name: "com.mysql.cj.jdbc.Driver"  session:
     store-type: "none"  jpa:    database: "mysql"
     database-platform: "org.hibernate.dialect.MySQL5InnoDBDialect"

@@ -97,4 +97,14 @@ public class ReservationService {
 		return reservationRepositiory.findBySignid(signID, localTime);
 	}
 
+	public List<Reservation> getReservationListAfterCurrentDate(String fromDate) {
+		// String localTime = LocalDateTime.now().toString().substring(0,
+		// 10).replaceAll("-", "");
+		return reservationRepositiory.findByDateAndSignIdIsNull(fromDate);
+	}
+
+	public List<Reservation> getReservationListAll() {
+		return reservationRepositiory.findSignIdIsNull();
+	}
+
 }

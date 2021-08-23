@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "user_sign", schema = "ear_project")
+@Table(name = "user_sign", schema = "eardb")
 public class UserSign {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

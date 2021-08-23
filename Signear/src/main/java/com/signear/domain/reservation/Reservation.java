@@ -59,10 +59,10 @@ public class Reservation {
 	@Column(nullable = true)
 	private Integer type;
 
-	@Column(nullable = true)
+	@Column(nullable = true, insertable = false, updatable = false)
 	private Integer customerid;
 
-	@Column(nullable = true)
+	@Column(nullable = true, insertable = false, updatable = false)
 	private Integer signid;
 
 	@Column(nullable = true)
@@ -72,11 +72,11 @@ public class Reservation {
 	private String start_time;
 
 	@ManyToOne(optional = false)
-	@JoinColumn
+	@JoinColumn(name = "customerid")
 	private UserCustomer userCustomer;
 
 	@ManyToOne(optional = false)
-	@JoinColumn
+	@JoinColumn(name = "signid")
 	private UserSign userSign;
 
 	/**

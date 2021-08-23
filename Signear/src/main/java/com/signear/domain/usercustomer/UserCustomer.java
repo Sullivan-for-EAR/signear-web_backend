@@ -22,8 +22,8 @@ import lombok.ToString;
 @Getter
 @ToString
 @Entity
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "user_customer", schema = "ear_project")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@Table(name = "user_customer", schema = "eardb")
 public class UserCustomer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

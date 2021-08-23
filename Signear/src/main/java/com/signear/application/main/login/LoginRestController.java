@@ -10,16 +10,11 @@ public class LoginRestController {
 	@Autowired
 	LoginService loginService;
 
-	@PostMapping("/login/customers")
+	@PostMapping("/login/signuser")
 	public String LoginForCustomer(@RequestParam("email") String email, @RequestParam("password") String password)
 			throws Exception {
-		return loginService.LoginCustomers(email, password);
-	}
 
-	@PostMapping("/login/sign")
-	public String LoginForSign(@RequestParam("email") String email, @RequestParam("password") String password)
-			throws Exception {
-		return loginService.LoginSign(email, password);
+		return loginService.loginSign(email, password);
 	}
 
 }
