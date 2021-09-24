@@ -17,7 +17,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @Entity
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "user_sign", schema = "eardb")
 public class UserSign {
 	@Id

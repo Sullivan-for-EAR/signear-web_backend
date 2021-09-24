@@ -5,13 +5,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.signear.domain.usersign.UserSign;
+
 @RestController
 public class LoginRestController {
 	@Autowired
 	LoginService loginService;
 
 	@PostMapping("/login/signuser")
-	public String LoginForCustomer(@RequestParam("email") String email, @RequestParam("password") String password)
+	public UserSign LoginForCustomer(@RequestParam("email") String email, @RequestParam("password") String password)
 			throws Exception {
 
 		return loginService.loginSign(email, password);
