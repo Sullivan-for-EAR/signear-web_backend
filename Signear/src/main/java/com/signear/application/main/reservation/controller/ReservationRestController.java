@@ -21,15 +21,52 @@ public class ReservationRestController {
 	@Autowired
 	ReservationService reservationService;
 
-	@ApiOperation(value = "예약 취소", notes = "청각 장애인이 reservation_id를 통해 얘약을 취소한다.")
-	@RequestMapping(value = "/cancel/{rsid}", method = RequestMethod.POST)
-	public Reservation cancelReservation(@PathVariable("rsid") Integer reservation_id) {
+	@ApiOperation(value = "모든 예약목록을 조회", notes = "센터에 신청된 모든 예약 목록을 조회(긴급건만)")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public List<Reservation> getReservationListAll(@RequestParam("pageNumber") int pageNumber,
+			@RequestParam("numberPerPage") int numberPerPage, @RequestParam("area") String area) {
 
-		return reservationService.cancel(reservation_id);
+		List<Reservation> ReservationResult = reservationService.getReservationListAll(pageNumber, numberPerPage, area);
+
+		return ReservationResult;
+	}
+
+	@ApiOperation(value = "오늘의 예약목록 조회", notes = "센터에 신청된 예약 날짜가 오늘인 예약 목록을 조회한다.")
+	@RequestMapping(value = "/todayReservationList", method = RequestMethod.GET)
+	public List<Reservation> getTodayReservationListAll(@RequestParam("pageNumber") int pageNumber,
+			@RequestParam("numberPerPage") int numberPerPage, @RequestParam("area") String area) {
+
+		List<Reservation> ReservationResult = reservationService.getTodayReservationListAll(pageNumber, numberPerPage,
+				area);
+
+		return ReservationResult;
+	}
+
+	@ApiOperation(value = "예약 취소", notes = "일반 통역 예약을 취소한다.")
+	@RequestMapping(value = "/cancel/{rsid}", method = RequestMethod.POST)
+	public void cancelReservation(@PathVariable("rsid") Integer rsid) {
+
+		reservationService.cancel(rsid);
 
 	}
 
-	@ApiOperation(value = "예약 수정", notes = "청각 장애인이 reservation_id를 통해 얘약정보를 수정한다.")
+	@ApiOperation(value = "긴급 통역 예약 취소", notes = "긴급 통역 예약을 rsid로 취소한다.")
+	@RequestMapping(value = "/cancelEmergency/{rsid}", method = RequestMethod.POST)
+	public void cancelEmergencyReservation(@PathVariable("rsid") Integer rsid) {
+
+		reservationService.emergencyCancel(rsid);
+
+	}
+
+	@ApiOperation(value = "예약 거절", notes = "예약정보를 거절한다")
+	@RequestMapping(value = "/rejectReservation", method = RequestMethod.POST)
+	public void rejectReservation(@RequestBody Reservation reservation) {
+		reservation.setStatus(5);
+		reservationService.update(reservation);
+
+	}
+
+	@ApiOperation(value = "예약 수정", notes = "청각 장애인의 예약정보를 수정한다.")
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public Reservation updateReservation(@RequestBody Reservation Reservation) {
 
@@ -37,38 +74,11 @@ public class ReservationRestController {
 
 	}
 
-	@ApiOperation(value = "예약 상세정보 조회", notes = " reservation_id를 통해 청각장애인의 얘약정보를 조회한다.")
-	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public Reservation getReservationInfo(@RequestParam Integer reservation_id) {
+	@ApiOperation(value = "예약 상세정보 조회", notes = " reservation_id를 통해 청각장애인의 예약정보를 조회한다.")
+	@RequestMapping(value = "/read/{rsid}", method = RequestMethod.GET)
+	public Reservation getReservationInfo(@PathVariable("rsid") Integer rsid) {
 
-		Reservation ReservationResult = reservationService.getOneByRsID(reservation_id);
-
-		return ReservationResult;
-	}
-
-	@ApiOperation(value = "청각장애인의 예약목록", notes = "청각 장애인의 customer_id를 통해 얘약 목록을 조회한다")
-	@RequestMapping(value = "/customer/list", method = RequestMethod.GET)
-	public List<Reservation> getReservationList(@RequestParam Integer customer_id) {
-
-		List<Reservation> ReservationResult = reservationService.getListByCustomerID(customer_id);
-
-		return ReservationResult;
-	}
-
-	@ApiOperation(value = "날짜를 기준으로 예약 신청한 목록을 조회", notes = "예약 날짜를 기준으로 모든 청각장애인이 예약 신청한 목록을 조회한다. 날짜형식 yyyymmdd")
-	@RequestMapping(value = "/rsDateList", method = RequestMethod.GET)
-	public List<Reservation> getReservationListToday(@RequestParam String fromDate) {
-
-		List<Reservation> ReservationResult = reservationService.getReservationListAfterCurrentDate(fromDate);
-
-		return ReservationResult;
-	}
-
-	@ApiOperation(value = "예약 신청한 모든 목록을 조회", notes = "모든 청각장애인이 예약 신청한 목록을 조회한다.")
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public List<Reservation> getReservationListAll() {
-
-		List<Reservation> ReservationResult = reservationService.getReservationListAll();
+		Reservation ReservationResult = reservationService.getOneByRsID(rsid);
 
 		return ReservationResult;
 	}

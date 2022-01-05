@@ -1,19 +1,20 @@
 package com.signear.application.main.reservation.service;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.signear.application.main.exception.ApiException;
-import com.signear.application.main.exception.ExceptionEnum;
+import com.signear.application.exception.ApiException;
+import com.signear.application.exception.ExceptionEnum;
 import com.signear.domain.reservation.Reservation;
 import com.signear.domain.reservation.ReservationRepositiory;
 
@@ -24,29 +25,6 @@ public class ReservationService {
 	ReservationRepositiory reservationRepositiory;
 
 //	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	public List<Reservation> findAll() {
-		return reservationRepositiory.findAll();
-	}
-
-	public List<Reservation> findAllSignReservation(String address) {
-
-		List<Integer> status = new ArrayList<>();
-		status.add(1); // 1:읽지않음
-		status.add(2); // 2:센터확인중
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
-		cal.add(Calendar.DATE, -1);
-		String date = dateFormat.format(cal.getTime());
-
-		return reservationRepositiory.findByAreaAndStatusInAndDateGreaterThan(address, status, date);
-	}
-
-	public Optional<Reservation> findOne(Integer Reservation_id) {
-		return reservationRepositiory.findById(Reservation_id);
-	}
 
 	public Reservation update(Reservation Reservation) {
 		return reservationRepositiory.save(Reservation);
@@ -69,42 +47,28 @@ public class ReservationService {
 		return reservationRepositiory.save(reservation);
 	}
 
-	public Reservation cancel(Integer Reservation_id) {
-		Reservation reservationMap = reservationRepositiory.findById(Reservation_id).get();
-		reservationMap.setStatus(4); // 4.예약취소
-
-		return reservationRepositiory.save(reservationMap);
+	public void cancel(Integer rsid) {
+		reservationRepositiory.updateStatusByRsid(4, rsid);
 	}
 
-	public Reservation emergencyCancel(Integer Reservation_id) {
-		Reservation reservationMap = reservationRepositiory.findById(Reservation_id).get();
-		reservationMap.setStatus(9); // 9: 긴급통역 취소
-
-		return reservationRepositiory.save(reservationMap);
+	public void emergencyCancel(Integer rsid) {
+		reservationRepositiory.updateStatusByRsid(9, rsid);
 	}
 
 	public Reservation getOneByRsID(Integer rsID) {
 		return reservationRepositiory.findByRsid(rsID);
 	}
 
-	public List<Reservation> getListByCustomerID(Integer customerID) {
-		String localTime = LocalDateTime.now().toString().substring(0, 10).replaceAll("-", "");
-		return reservationRepositiory.findByCustomerid(customerID, localTime);
+	public List<Reservation> getReservationListAll(int pageNumber, int numberPerPage, String area) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, numberPerPage, Direction.DESC, "rsid");
+		return reservationRepositiory.findEmergencyRsByTypeAndArea(pageable, 2, area);
 	}
 
-	public List<Reservation> getListBySignID(Integer signID) {
-		String localTime = LocalDateTime.now().toString().substring(0, 10).replaceAll("-", "");
-		return reservationRepositiory.findBySignid(signID, localTime);
-	}
-
-	public List<Reservation> getReservationListAfterCurrentDate(String fromDate) {
-		// String localTime = LocalDateTime.now().toString().substring(0,
-		// 10).replaceAll("-", "");
-		return reservationRepositiory.findByDateAndSignIdIsNull(fromDate);
-	}
-
-	public List<Reservation> getReservationListAll() {
-		return reservationRepositiory.findSignIdIsNull();
+	public List<Reservation> getTodayReservationListAll(int pageNumber, int numberPerPage, String area) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, numberPerPage, Direction.DESC, "rsid");
+		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		return reservationRepositiory.findEmergencyRsByDateAndTypeAndArea(pageable, dateFormat.format(new Date()), 2,
+				area);
 	}
 
 }

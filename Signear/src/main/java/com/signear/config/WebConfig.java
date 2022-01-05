@@ -6,12 +6,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+	// cors 설정
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedOrigins("http://*:8086", "http://localhost:8086")
 				.allowedMethods("GET", "POST", "PUT", "DELETE", "FETCH").allowCredentials(true)
 				.allowedHeaders("Origin", "X-Requested-With", "Content-Type", "Access-Control-Request-Method",
 						"Access-Control-Request-Headers", "Authorization")
+				.exposedHeaders("at-jwt-access-token", "at-jwt-refresh-token", "at-jwt-access-token-expire-date",
+						"at-jwt-refresh-token-expire-date")
 				.maxAge(30000);
 	}
 

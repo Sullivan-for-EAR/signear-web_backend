@@ -1,4 +1,4 @@
-package com.signear.application.main.management.Model;
+package com.signear.application.main.management.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

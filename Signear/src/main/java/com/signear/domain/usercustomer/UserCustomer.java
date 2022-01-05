@@ -17,9 +17,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
 @Entity
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -38,6 +40,9 @@ public class UserCustomer {
 
 	@Column(length = 255, nullable = true)
 	private String password;
+
+	@Column(nullable = true)
+	private String memo;
 
 	/**
 	 * 생성 일자

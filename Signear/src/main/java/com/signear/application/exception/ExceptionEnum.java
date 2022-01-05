@@ -1,4 +1,4 @@
-package com.signear.application.main.exception;
+package com.signear.application.exception;
 
 import org.springframework.http.HttpStatus;
 

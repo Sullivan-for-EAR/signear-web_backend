@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.signear.application.main.login.JwtService;
 import com.signear.domain.usersign.UserSign;
 import com.signear.domain.usersign.UserSignRepository;
 
@@ -17,6 +18,8 @@ import com.signear.domain.usersign.UserSignRepository;
 public class CustomUserDetailService implements UserDetailsService {
 	@Autowired
 	UserSignRepository userSignRepository;
+	@Autowired
+	JwtService jwtService;
 
 	@Override
 	public CustomUserDetail loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -31,11 +34,11 @@ public class CustomUserDetailService implements UserDetailsService {
 			List<GrantedAuthority> authorities = new ArrayList<>();
 			authorities.add(new SimpleGrantedAuthority("ROLE_SIGN"));
 			customUserDetails.setAuthorities(authorities);
-
 			customUserDetails.setEnabled(true);
 			customUserDetails.setAccountNonExpired(true);
 			customUserDetails.setAccountNonLocked(true);
 			customUserDetails.setCredentialsNonExpired(true);
+			customUserDetails.setEnabled(true);
 		}
 		return customUserDetails;
 	}

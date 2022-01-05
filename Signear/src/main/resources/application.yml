@@ -3,4 +3,4 @@ spring:  profiles:    active:    - prod   # - dev  datasource:    url: "jd
     store-type: "none"  jpa:    database: "mysql"
     database-platform: "org.hibernate.dialect.MySQL5InnoDBDialect"
     show-sql: true
-    open-in-view: false
+    open-in-view: falseJWT:  JwtExpireTime: 30  scretKey: "ear_project"  initailPW: "ear_app"
