@@ -10,7 +10,9 @@ public class WebConfig implements WebMvcConfigurer {
 	// cors 설정
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("http://*:8086", "http://localhost:8086")
+		registry.addMapping("/**")
+				.allowedOrigins("http://localhost:8086", "http://localhost:3001", "http://localhost:3001",
+						"http://api.signear.com:8086", "http://api.signear.com:3001")
 				.allowedMethods("GET", "POST", "PUT", "DELETE", "FETCH").allowCredentials(true)
 				.allowedHeaders("Origin", "X-Requested-With", "Content-Type", "Access-Control-Request-Method",
 						"Access-Control-Request-Headers", "Authorization")

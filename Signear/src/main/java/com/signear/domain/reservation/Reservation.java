@@ -84,11 +84,11 @@ public class Reservation {
 	@Column(nullable = true)
 	private String start_time;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customerid")
 	private UserCustomer userCustomer;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "signid")
 	private UserSign userSign;
 
