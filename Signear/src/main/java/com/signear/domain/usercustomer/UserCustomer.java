@@ -44,6 +44,9 @@ public class UserCustomer {
 	@Column(nullable = true)
 	private String memo;
 
+	@Column(nullable = false)
+	private String name;
+
 	/**
 	 * 생성 일자
 	 */

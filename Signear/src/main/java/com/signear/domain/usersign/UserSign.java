@@ -42,4 +42,7 @@ public class UserSign {
 
 	@Column(length = 255, nullable = true)
 	private String phone;
+
+	@Column(length = 255, nullable = false)
+	private String name;
 }

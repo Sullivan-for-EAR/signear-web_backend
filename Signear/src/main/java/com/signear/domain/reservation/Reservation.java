@@ -34,8 +34,8 @@ import lombok.NoArgsConstructor;
 		@ColumnResult(name = "request", type = String.class), @ColumnResult(name = "date", type = String.class),
 		@ColumnResult(name = "memo", type = String.class), @ColumnResult(name = "rsid", type = Integer.class),
 		@ColumnResult(name = "customerid", type = Integer.class), }))
-@NamedNativeQuery(name = "findReserverInfo", resultSetMapping = "findReserverInfoMapper", query = "SELECT r.customerid ,r.rsid ,r.date , r.request, u.phone, u.memo, u.email FROM reservation r INNER JOIN user_customer u ON u.customerid = r.customerid AND r.area = :area WHERE r.date = (select max(r2.date) from reservation r2 where r.customerid = r2.customerid) GROUP BY r.customerid")
-@NamedNativeQuery(name = "findReserverInfoByCustomeridAndArea", resultSetMapping = "findReserverInfoMapper", query = "SELECT r.customerid ,r.rsid ,r.date , r.request, u.phone, u.memo, u.email FROM reservation r INNER JOIN user_customer u ON u.customerid = r.customerid AND r.area = :area AND r.customerid = :customerid WHERE r.date = (select max(r2.date) from reservation r2 where r.customerid = r2.customerid) GROUP BY r.customerid")
+@NamedNativeQuery(name = "findReserverInfo", resultSetMapping = "findReserverInfoMapper", query = "SELECT r.customerid ,r.rsid ,r.date , r.request, u.name, u.phone, u.memo, u.email FROM reservation r INNER JOIN user_customer u ON u.customerid = r.customerid AND r.area = :area WHERE r.date = (select max(r2.date) from reservation r2 where r.customerid = r2.customerid) GROUP BY r.customerid")
+@NamedNativeQuery(name = "findReserverInfoByCustomeridAndArea", resultSetMapping = "findReserverInfoMapper", query = "SELECT r.customerid ,r.rsid ,r.date , r.request, u.name, u.phone, u.memo, u.email FROM reservation r INNER JOIN user_customer u ON u.customerid = r.customerid AND r.area = :area AND r.customerid = :customerid WHERE r.date = (select max(r2.date) from reservation r2 where r.customerid = r2.customerid) GROUP BY r.customerid")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
